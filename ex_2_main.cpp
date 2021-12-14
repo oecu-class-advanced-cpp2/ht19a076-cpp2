@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
-#include <cmath>
+#include <algorithm>
+using namespace std;
+
+
 namespace cpp2 {
 	/* --------------------------------------------------------------------- */
 	/*
@@ -25,33 +28,20 @@ namespace cpp2 {
 		されます。
 		*/
 		/* ----------------------------------------------------------------- */
-		mcxi(const std::string &s) : value_(0) {
+		mcxi(const std::string& s) : value_(0) {
 			int num = 0;
-			int m = 0;
 			for (auto pos = s.begin(); pos != s.end(); ++pos) {
-
-				if (*pos == '2' || '3' || '4' || '5' || '6' || '7' || '8' || '9') {
-					switch (*pos) {
-					case '2': num = 2; break;
-					case '3': num = 2; break;
-					case '4': num = 2; break;
-					case '5': num = 2; break;
-					case '6': num = 2; break;
-					case '7': num = 2; break;
-					case '8': num = 2; break;
-					case '9': num = 2; break;
-					}
+				//*pos は、char ! char ってことが分かってたら、もっと簡単にできるのでは？？
+				if (*pos >= '2' && *pos <= '9') {
+					num = *pos - '0';
 				}
 				else {
-					if ('m'==*pos ) {
-						m = 1 * 1000;
-					}
+					int u = unit(*pos);
+					value_ += std::max(num, 1) * u;
+					num = 0;
 				}
-				std::cout << value_ << std::endl;
-
 			}
 		}
-
 
 		/* ----------------------------------------------------------------- */
 		/*
@@ -75,6 +65,19 @@ namespace cpp2 {
 			return "XXX";
 		}
 
+		void debug_mcxi() {
+			std::cout << "value_: " << value_ << std::endl;
+		}
+	private:
+		int unit(char c) {
+			switch (c) {
+			case 'm': return 1000;
+			case 'c': return  100;
+			case 'x': return   10;
+			case 'i': return    1;
+			}
+			return -1;
+		}
 
 	private:
 		int value_;
@@ -82,7 +85,8 @@ namespace cpp2 {
 }
 
 int main() {
-	cpp2::mcxi a0("xi");
+	cpp2::mcxi a0("x9i");
+	a0.debug_mcxi();
 	cpp2::mcxi b0("x9i");
 	auto result0 = a0 + b0;
 	std::cout << "3x" << " " << result0.to_string() << std::endl;
