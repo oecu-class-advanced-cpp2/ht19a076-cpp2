@@ -50,8 +50,10 @@ namespace cpp2 {
 		2 つのオブジェクトの加算結果を取得します。
 		*/
 		/* ----------------------------------------------------------------- */
-		mcxi operator+(const mcxi& rhs) {
-			return rhs;
+		mcxi operator+(const mcxi& rhs){
+			mcxi new_(rhs);
+			new_.value_=value_ + rhs.value_;
+			return new_;
 		}
 
 		/* ----------------------------------------------------------------- */
@@ -62,6 +64,7 @@ namespace cpp2 {
 		*/
 		/* ----------------------------------------------------------------- */
 		std::string to_string() const {
+
 			return "XXX";
 		}
 
@@ -87,7 +90,7 @@ namespace cpp2 {
 int main() {
 	cpp2::mcxi a0("x9i");
 	a0.debug_mcxi();
-	cpp2::mcxi b0("x9i");
+	cpp2::mcxi b0("xi");
 	auto result0 = a0 + b0;
 	std::cout << "3x" << " " << result0.to_string() << std::endl;
 
