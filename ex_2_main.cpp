@@ -64,12 +64,53 @@ namespace cpp2 {
 		*/
 		/* ----------------------------------------------------------------- */
 		std::string to_string() const {
-
-			return "XXX";
+			string str;
+			int num = value_;
+			if (num / 1000 >=1) {
+				if (num / 1000 == 1) {
+					str += "m";
+					num -= 1000;
+				}
+				else {
+					str += std::to_string(num / 1000) + "m";
+					num -= (num / 1000) * 1000;
+				}
+			}
+			if(num / 100 >= 1) {
+				if (num / 100 == 1) {
+					str += "c";
+					num -= 100;
+				}
+				else {
+					str += std::to_string(num / 100) + "c";
+					num -= (num / 100) * 100;
+				}
+			}
+			if(num / 10 >= 1) {
+				if (num / 10 == 1) {
+					str += "x";
+					num -= 10;
+				}
+				else {
+					str += std::to_string(num / 10) + "x";
+					num -= (num / 10) * 10;
+				}
+			}
+			if(num / 1 >= 1) {
+				if (num / 1 == 1) {
+					str += "m";
+					num -= 1;
+				}
+				else {
+					str += std::to_string(num / 1) + "i";
+					num -= (num / 1) * 1;
+				}
+			}
+			return str;
 		}
 
 		void debug_mcxi() {
-			std::cout << "value_: " << value_ << std::endl;
+			std::cout << "value_: " << std::endl;
 		}
 	private:
 		int unit(char c) {
